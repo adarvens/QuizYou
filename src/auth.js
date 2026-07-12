@@ -1,6 +1,33 @@
 // QuizYou Authentication Module
 import { appState } from './state.js';
 import { navigateTo, resetNavigationHistory } from './navigation.js';
+//Updated login and nav logic
+
+const BACKEND_URL = 'http://localhost:5001';
+
+export async function handleLogin(inputId, inputPw) {
+  const alertBox = document.getElementById('auth-alert');
+
+  try {
+    const res = await fetch(`${BACKEND_URL}/api/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: inputId, password: inputPw })
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Authentication error');
+
+    localStorage.setItem('quizyou_jwt', data.token);
+    localStorage.setItem('quizyou_user', JSON.stringify(data.user));
+
+    // update state & navigate to course selection screen
+    navigateTo('config');
+  } catch (err) {
+    alertBox.textContent = err.message;
+    alertBox.style.display = 'block';
+  }
+}
 
 export function updateHeaderStatus(isLoggedIn) {
   const avatar = document.getElementById('user-status-avatar');

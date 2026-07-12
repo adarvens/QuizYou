@@ -78,6 +78,7 @@
 
         <form id="config-form" onsubmit="return false;">
           <div class="form-group">
+<<<<<<< Updated upstream
             <label for="config-subject">Subject Module</label>
             <select id="config-subject" class="form-control">
               <option value="all">All Subjects</option>
@@ -89,6 +90,22 @@
           </div>
 
           <div class="form-group">
+=======
+			<label for="config-course">Select Course</label>
+			<select id="config-course" class="form-control">
+			<!-- Populated dynamically: <option value="courseId">CS591: Software Engineering</option> -->
+			</select>
+		  </div>
+		  
+		  <div class="form-group">
+			  <label for="config-quiz">Select Quiz</label>
+			  <select id="config-quiz" class="form-control">
+				<!-- Populated dynamically based on selected course -->
+			  </select>
+		  </div>
+          
+		  <div class="form-group">
+>>>>>>> Stashed changes
             <label for="config-questions">Number of Questions (5 - 40)</label>
             <input type="number" id="config-questions" class="form-control" min="5" max="40" value="10">
           </div>

@@ -1,5 +1,35 @@
 import { appState } from './state.js';
 
+const BACKEND_URL = 'http://localhost:5001';
+//Updated API fetching and JWT headers
+function getHeaders() {
+  const token = localStorage.getItem('quizyou_jwt');
+  return {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  };
+}
+
+export async function fetchCourses() {
+  const res = await fetch(`${BACKEND_URL}/api/courses`, { headers: getHeaders() });
+  return res.ok ? await res.json() : [];
+}
+
+export async function fetchQuizzesForCourse(courseId) {
+  const res = await fetch(`${BACKEND_URL}/api/courses/${courseId}/quizzes`, {
+    headers: getHeaders()
+  });
+  return res.ok ? await res.json() : [];
+}
+
+export async function fetchQuizDetails(quizId) {
+  const res = await fetch(`${BACKEND_URL}/api/quizzes/${quizId}`, {
+    headers: getHeaders()
+  });
+  return res.ok ? await res.json() : {};
+}
+
+
 export const FALLBACK_STUDENTS = [
   { "id": "dbacon89", "firstName": "David", "lastName": "Bacon", "email": "dbacon89@bu.edu", "password": "password" },
   { "id": "saranneh", "firstName": "Saranne", "lastName": "Hobbs", "email": "saranneh@bu.edu", "password": "password" },
