@@ -1,5 +1,11 @@
 require('dotenv').config({ path: require('path').join(__dirname, '../.env')
 });
+//for all ip address connectivity, 1.1.1.1 used and caused dns conflict with how node handled addresses.
+//overriding server default to allow seeding& service connection
+const dns = require("node:dns");
+
+dns.setServers(["1.1.1.1", "1.0.0.1"]);
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const fs = require('fs');
